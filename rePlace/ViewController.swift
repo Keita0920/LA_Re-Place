@@ -4,7 +4,9 @@ import MapKit
 
 class ViewController: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate{
     @IBOutlet weak var mapView: MKMapView!
-    
+    var cameraImageView=UIImageView()
+    var picture:UIImage!
+    var resizedPicture:UIImage!
     let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
@@ -87,7 +89,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate , MKMapViewDel
           if annotationView == nil {
             annotationView = MKAnnotationView.init(annotation: annotation, reuseIdentifier: identifier)
           }
-          annotationView?.image = UIImage.init(named: "aaa") // 任意の画像名
+            
+            annotationView?.image = resizedPicture // 任意の画像名
           annotationView?.annotation = annotation
           return annotationView
         }
@@ -103,4 +106,21 @@ class ViewController: UIViewController, CLLocationManagerDelegate , MKMapViewDel
             print("error")
         }
     }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        cameraImageView.image=info[.editedImage]as?UIImage
+        picture=cameraImageView.image
+        resizedPicture = picture.resize(targetSize: CGSize(width: picture.size.width / 8, height: picture.size.height / 8))
+        dismiss(animated: true,completion: nil)
+    }
+}
+
+extension UIImage {
+
+    func resize(targetSize: CGSize) -> UIImage {
+        return UIGraphicsImageRenderer(size:targetSize).image { _ in
+            self.draw(in: CGRect(origin: .zero, size: targetSize))
+        }
+    }
+
 }
