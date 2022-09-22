@@ -10,6 +10,7 @@
 		0B91CAEA28D4527A00F5540C /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 0B91CAE928D4527A00F5540C /* Realm */; };
 		0B91CAEC28D4527A00F5540C /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0B91CAEB28D4527A00F5540C /* RealmSwift */; };
 		0B91CAEE28D453BF00F5540C /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B91CAED28D453BF00F5540C /* CustomAnnotation.swift */; };
+		0B91CAF028D7E65800F5540C /* Replace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B91CAEF28D7E65800F5540C /* Replace.swift */; };
 		0BADD74828D35F8D00ABBB35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BADD74728D35F8D00ABBB35 /* AppDelegate.swift */; };
 		0BADD74A28D35F8D00ABBB35 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BADD74928D35F8D00ABBB35 /* SceneDelegate.swift */; };
 		0BADD74C28D35F8D00ABBB35 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BADD74B28D35F8D00ABBB35 /* ViewController.swift */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		0B91CAED28D453BF00F5540C /* CustomAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
+		0B91CAEF28D7E65800F5540C /* Replace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Replace.swift; sourceTree = "<group>"; };
 		0BADD74428D35F8D00ABBB35 /* rePlace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = rePlace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BADD74728D35F8D00ABBB35 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0BADD74928D35F8D00ABBB35 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 				0BADD75228D35F8E00ABBB35 /* LaunchScreen.storyboard */,
 				0BADD75528D35F8E00ABBB35 /* Info.plist */,
 				0B91CAED28D453BF00F5540C /* CustomAnnotation.swift */,
+				0B91CAEF28D7E65800F5540C /* Replace.swift */,
 			);
 			path = rePlace;
 			sourceTree = "<group>";
@@ -152,6 +155,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B91CAF028D7E65800F5540C /* Replace.swift in Sources */,
 				0BADD74C28D35F8D00ABBB35 /* ViewController.swift in Sources */,
 				0BADD74828D35F8D00ABBB35 /* AppDelegate.swift in Sources */,
 				0BADD74A28D35F8D00ABBB35 /* SceneDelegate.swift in Sources */,
