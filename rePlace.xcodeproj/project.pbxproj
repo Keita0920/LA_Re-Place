@@ -17,6 +17,7 @@
 		0BADD74F28D35F8D00ABBB35 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BADD74D28D35F8D00ABBB35 /* Main.storyboard */; };
 		0BADD75128D35F8E00ABBB35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BADD75028D35F8E00ABBB35 /* Assets.xcassets */; };
 		0BADD75428D35F8E00ABBB35 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BADD75228D35F8E00ABBB35 /* LaunchScreen.storyboard */; };
+		0BD487CE28DD583A00CB9914 /* TagListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD487CD28DD583A00CB9914 /* TagListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		0BADD75028D35F8E00ABBB35 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0BADD75328D35F8E00ABBB35 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0BADD75528D35F8E00ABBB35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0BD487CD28DD583A00CB9914 /* TagListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 				0BADD75528D35F8E00ABBB35 /* Info.plist */,
 				0B91CAED28D453BF00F5540C /* CustomAnnotation.swift */,
 				0B91CAEF28D7E65800F5540C /* Replace.swift */,
+				0BD487CD28DD583A00CB9914 /* TagListViewController.swift */,
 			);
 			path = rePlace;
 			sourceTree = "<group>";
@@ -160,6 +163,7 @@
 				0BADD74828D35F8D00ABBB35 /* AppDelegate.swift in Sources */,
 				0BADD74A28D35F8D00ABBB35 /* SceneDelegate.swift in Sources */,
 				0B91CAEE28D453BF00F5540C /* CustomAnnotation.swift in Sources */,
+				0BD487CE28DD583A00CB9914 /* TagListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

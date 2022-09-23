@@ -14,6 +14,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate , MKMapViewDel
     var loc:CLLocation? = nil
     var latitude:Double=0.0
     var longitude:Double=0.0
+    var tableview:UITableView!
     // ドキュメントディレクトリの「ファイルURL」（URL型）定義
     var documentDirectoryFileURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
     
@@ -28,38 +29,29 @@ class ViewController: UIViewController, CLLocationManagerDelegate , MKMapViewDel
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         // 位置情報の使用の許可を得る
+        locationManager.requestAlwaysAuthorization()
+        locationManager.requestWhenInUseAuthorization()
         if CLLocationManager.locationServicesEnabled() {
-            switch CLLocationManager.authorizationStatus() {
-            case .authorizedWhenInUse:
-                // 座標の表示
-                locationManager.startUpdatingLocation()
-                break
-            default:
-                locationManager.requestAlwaysAuthorization()
-            }
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
         }
         // 地図の初期化
         initMap()
-        
-        let tableData = realm.objects(Replace.self)
-        print(tableData)
-        if tableData.count == 0{
+        //Realmから読み込み
+        let replace = realm.objects(Replace.self)
+        print(replace)
+        if replace.count == 0{
             return
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         updateCurrentPos((locations.last?.coordinate)!)
-        guard let loc = locations.last else { return }
-        self.loc=loc
-        self.latitude=Double(String(locations.first?.coordinate.latitude))!
-        self.longitude=Double(String(locations.first?.coordinate.longitude))!
-        CLGeocoder().reverseGeocodeLocation(loc, completionHandler: {(placemarks, error) in
-            if let error = error {
-                print("reverseGeocodeLocation Failed: \(error.localizedDescription)")
-                return
-            }
-        })
+        guard let loc: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        print("locations = \(loc.latitude) \(loc.longitude)")
+        latitude=loc.latitude
+        longitude=loc.longitude
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -82,6 +74,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate , MKMapViewDel
         var region:MKCoordinateRegion = mapView.region
         region.center = coordinate
     }
+    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if (annotation is MKUserLocation) {
             // ユーザの現在地の青丸マークは置き換えない
@@ -106,6 +99,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate , MKMapViewDel
             return annotationView
         }
     }
+    
     @IBAction func takePhoto(){
         if UIImagePickerController.isSourceTypeAvailable(.camera){
             let picker=UIImagePickerController()
@@ -117,48 +111,44 @@ class ViewController: UIViewController, CLLocationManagerDelegate , MKMapViewDel
             print("error")
         }
         let pa = MKPointAnnotation()
-        pa.title = "I'm here!"
         guard let loc=self.loc else{
             return
         }
         pa.coordinate = loc.coordinate
-        mapView.removeAnnotations(mapView.annotations)
         mapView.addAnnotation(pa)
-        
-        let table = Replace()
-        table.latitude=self.latitude
-        table.longitude=self.longitude
-        try! realm.write{realm.add(table)}
     }
     
+    //撮った写真をリサイズ
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picture=info[.editedImage]as?UIImage
         resizedPicture = picture.resize(targetSize: CGSize(width: picture.size.width / 10, height: picture.size.height / 10))
-        saveImage()
+        save()
         dismiss(animated: true,completion: nil)
     }
+    
     //保存するためのパスを作成する
     func createLocalDataFile() {
         // 作成するテキストファイルの名前
         let fileName = "\(NSUUID().uuidString).png"
         // DocumentディレクトリのfileURLを取得
-        if documentDirectoryFileURL != nil {
-            // ディレクトリのパスにファイル名をつなげてファイルのフルパスを作る
-            let path = documentDirectoryFileURL.appendingPathComponent(fileName)
-            documentDirectoryFileURL = path
-        }
+        // ディレクトリのパスにファイル名をつなげてファイルのフルパスを作る
+        let path = documentDirectoryFileURL.appendingPathComponent(fileName)
+        documentDirectoryFileURL = path
+        
     }
     
-    //画像を保存する関数の部分
-    func saveImage() {
+    //Realmに保存する関数の部分
+    func save() {
         createLocalDataFile()
         //pngで保存する場合
         let pngImageData = resizedPicture.pngData()
         do {
             try pngImageData!.write(to: documentDirectoryFileURL)
-            let table = Replace()
-            table.imageURL = documentDirectoryFileURL.absoluteString
-            try! realm.write{realm.add(table)}
+            let replace = Replace()
+            replace.imageURL = documentDirectoryFileURL.absoluteString
+            replace.latitude=self.latitude
+            replace.longitude=self.longitude
+            try! realm.write{realm.add(replace)}
         } catch {
             //エラー処理
             print("エラー")
