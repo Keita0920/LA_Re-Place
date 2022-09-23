@@ -4,7 +4,7 @@ import MapKit
 import RealmSwift
 
 
-class ViewController: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate{
+class HomeViewController: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate{
     @IBOutlet weak var mapView: MKMapView!
     var picture:UIImage!
     var resizedPicture:UIImage!
@@ -165,5 +165,4 @@ extension UIImage {
             self.draw(in: CGRect(origin: .zero, size: targetSize))
         }
     }
-    
 }

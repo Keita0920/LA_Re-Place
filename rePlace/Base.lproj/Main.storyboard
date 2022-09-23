@@ -25,11 +25,11 @@
             </objects>
             <point key="canvasLocation" x="1912" y="358"/>
         </scene>
-        <!--View Controller-->
+        <!--Home View Controller-->
         <scene sceneID="bHs-mR-egE">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="he1-Fl-vrH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <viewController id="Ebd-TT-zkX" customClass="ViewController" customModule="rePlace" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Ebd-TT-zkX" customClass="HomeViewController" customModule="rePlace" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vPz-Ge-h4b">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
