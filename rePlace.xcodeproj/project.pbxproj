@@ -19,6 +19,7 @@
 		0BE918B428DDEF570031874A /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE918B328DDEF570031874A /* Image.swift */; };
 		0BE918B628DDEFCC0031874A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE918B528DDEFCC0031874A /* HomeViewController.swift */; };
 		0BE918B828DDF3200031874A /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE918B728DDF3200031874A /* Tag.swift */; };
+		0BE918BA28DE02290031874A /* TagAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE918B928DE02290031874A /* TagAddViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		0BE918B328DDEF570031874A /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		0BE918B528DDEFCC0031874A /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		0BE918B728DDF3200031874A /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		0BE918B928DE02290031874A /* TagAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagAddViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 				0BE918B328DDEF570031874A /* Image.swift */,
 				0BE918B528DDEFCC0031874A /* HomeViewController.swift */,
 				0BE918B728DDF3200031874A /* Tag.swift */,
+				0BE918B928DE02290031874A /* TagAddViewController.swift */,
 			);
 			path = rePlace;
 			sourceTree = "<group>";
@@ -162,6 +165,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0BE918B428DDEF570031874A /* Image.swift in Sources */,
+				0BE918BA28DE02290031874A /* TagAddViewController.swift in Sources */,
 				0BADD74828D35F8D00ABBB35 /* AppDelegate.swift in Sources */,
 				0BADD74A28D35F8D00ABBB35 /* SceneDelegate.swift in Sources */,
 				0BE918B828DDF3200031874A /* Tag.swift in Sources */,

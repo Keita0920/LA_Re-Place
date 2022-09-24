@@ -39,10 +39,24 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate , MKMapVie
         // 地図の初期化
         initMap()
         //Realmから読み込み
-        let replace = realm.objects(Image.self)
-        print(replace)
-        if replace.count == 0{
+        let replace = Image()
+        var imagePin:[MKPointAnnotation]=[]
+        let image = realm.objects(Image.self)
+        print(image)
+        if image.count == 0{
             return
+        }
+        for i in 0..<image.count{
+            imagePin.append(MKPointAnnotation())
+            
+        }
+        for i in 0..<image.count{
+            let fileURL = URL(string: image[i].imageURL)
+            let filePath = fileURL?.path
+            imagePin[i].coordinate=CLLocationCoordinate2D(latitude: image[i].latitude, longitude: image[i].longitude)
+            annotationView?.image = UIImage(contentsOfFile: filePath!)
+            annotationView?.annotation = imagePin[i]
+            
         }
     }
     
@@ -76,29 +90,43 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate , MKMapVie
         region.center = coordinate
     }
     
+    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if (annotation is MKUserLocation) {
             // ユーザの現在地の青丸マークは置き換えない
             return nil
         } else {
             // CustomAnnotationの場合に画像を配置
-            let identifier = "Pin"
-            annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-            if annotationView == nil {
-                annotationView = MKAnnotationView.init(annotation: annotation, reuseIdentifier: identifier)
+//            let identifier = "Pin"
+//            annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+//            if annotationView == nil {
+//                annotationView = MKAnnotationView.init(annotation: annotation, reuseIdentifier: identifier)
+//            }
+//            let image = realm.objects(Image.self)
+//            if image.count == 0{
+//                return nil
+//            }
+//            //URL型にキャスト
+//            let fileURL = URL(string: image[0].imageURL)
+//            //パス型に変換
+//            let filePath = fileURL?.path
+//            annotationView?.image = UIImage(contentsOfFile: filePath!)
+//            annotationView?.annotation = annotation
+//            return annotationView
+            let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "Pin")
+            let image = realm.objects(Image.self)
+            for i in 0..<image.count{
+                let fileURL = URL(string: image[i].imageURL)
+                let filePath = fileURL?.path
+                if annotation.coordinate CLLocationCoordinate2D(latitude: image[i].latitude, longitude: image[i].longitude) {
+                    annotationView?.image = UIImage(contentsOfFile: filePath!)
+                    return annotationView
+                }
+                
+                
             }
-            let tableData = realm.objects(Image.self)
-            if tableData.count == 0{
-                return nil
-            }
-            //URL型にキャスト
-            let fileURL = URL(string: tableData[0].imageURL)
-            //パス型に変換
-            let filePath = fileURL?.path
-            annotationView?.image = UIImage(contentsOfFile: filePath!)
-            annotationView?.annotation = annotation
-            return annotationView
         }
+        return nil
     }
     
     @IBAction func takePhoto(){

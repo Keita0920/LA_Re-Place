@@ -1,15 +1,29 @@
 //
-//  tagListViewController.swift
+//  TagAddViewController.swift
 //  rePlace
 //
-//  Created by K I on 2022/09/23.
+//  Created by K I on 2022/09/24.
 //
 
 import UIKit
-import RealmSwift
 
-class TagListViewController: UIViewController,UITableViewDataSource {
+class TagAddViewController: UIViewController ,UITableViewDataSource{
     @IBOutlet var table:UITableView!
+    
+    let black     = UIColor.black
+    let darkGray  = UIColor.darkGray
+    let lightGray = UIColor.lightGray
+    let white     = UIColor.white
+    let gray      = UIColor.gray
+    let red       = UIColor.red
+    let green     = UIColor.green
+    let blue      = UIColor.blue
+    let cyan      = UIColor.cyan
+    let yellow    = UIColor.yellow
+    let magenta   = UIColor.magenta
+    let orange    = UIColor.orange
+    let purple    = UIColor.purple
+    let brown     = UIColor.brown
 
     override func viewDidLoad() {
         super.viewDidLoad()
