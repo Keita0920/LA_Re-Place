@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0B91CAEA28D4527A00F5540C /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 0B91CAE928D4527A00F5540C /* Realm */; };
 		0B91CAEC28D4527A00F5540C /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0B91CAEB28D4527A00F5540C /* RealmSwift */; };
-		0B91CAEE28D453BF00F5540C /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B91CAED28D453BF00F5540C /* CustomAnnotation.swift */; };
 		0BADD74828D35F8D00ABBB35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BADD74728D35F8D00ABBB35 /* AppDelegate.swift */; };
 		0BADD74A28D35F8D00ABBB35 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BADD74928D35F8D00ABBB35 /* SceneDelegate.swift */; };
 		0BADD74F28D35F8D00ABBB35 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BADD74D28D35F8D00ABBB35 /* Main.storyboard */; };
@@ -23,7 +22,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0B91CAED28D453BF00F5540C /* CustomAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
 		0BADD74428D35F8D00ABBB35 /* rePlace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = rePlace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BADD74728D35F8D00ABBB35 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0BADD74928D35F8D00ABBB35 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,7 +74,6 @@
 				0BADD75028D35F8E00ABBB35 /* Assets.xcassets */,
 				0BADD75228D35F8E00ABBB35 /* LaunchScreen.storyboard */,
 				0BADD75528D35F8E00ABBB35 /* Info.plist */,
-				0B91CAED28D453BF00F5540C /* CustomAnnotation.swift */,
 				0BD487CD28DD583A00CB9914 /* TagListViewController.swift */,
 				0BE918B328DDEF570031874A /* Image.swift */,
 				0BE918B528DDEFCC0031874A /* HomeViewController.swift */,
@@ -169,7 +166,6 @@
 				0BADD74828D35F8D00ABBB35 /* AppDelegate.swift in Sources */,
 				0BADD74A28D35F8D00ABBB35 /* SceneDelegate.swift in Sources */,
 				0BE918B828DDF3200031874A /* Tag.swift in Sources */,
-				0B91CAEE28D453BF00F5540C /* CustomAnnotation.swift in Sources */,
 				0BE918B628DDEFCC0031874A /* HomeViewController.swift in Sources */,
 				0BD487CE28DD583A00CB9914 /* TagListViewController.swift in Sources */,
 			);

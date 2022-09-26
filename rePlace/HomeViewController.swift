@@ -3,29 +3,19 @@ import CoreLocation
 import MapKit
 import RealmSwift
 
-
 class HomeViewController: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate{
     @IBOutlet weak var mapView: MKMapView!
     var picture:UIImage!
     var resizedPicture:UIImage!
     let locationManager = CLLocationManager()
     let realm = try! Realm()
-    var annotationView: MKAnnotationView?
     var loc:CLLocationCoordinate2D? = nil
     var latitude:Double=0.0
     var longitude:Double=0.0
-    var tableview:UITableView!
-    var imagePin:[AnnotationPin]=[]
-    var path:URL? = nil
-    // ドキュメントディレクトリの「ファイルURL」（URL型）定義
-    let documentDirectoryFileURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-    
-    // ドキュメントディレクトリの「パス」（String型）定義
-    let filePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+    var fileName2:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.mapView.delegate = self
         self.mapView.setUserTrackingMode(MKUserTrackingMode.followWithHeading, animated: true)
         locationManager.delegate = self
@@ -46,8 +36,6 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate , MKMapVie
         if image.count == 0{
             return
         }
-        
-        
         for i in 0..<image.count{
             let fileManager = FileManager.default
             let documentDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -60,7 +48,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate , MKMapVie
                     mapView.addAnnotation(annotationPin)
                     
                 } else {
-                   fatalError("Can't create image from file \(imageURL)")
+                    fatalError("Can't create image from file \(imageURL)")
                 }
             }
         }
@@ -103,29 +91,24 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate , MKMapVie
             return nil
         } else {
             guard let myAnnotation = annotation as? AnnotationPin  else {
-                    return nil
-                }
-
-                let annotationIdentifier = "AnnotationIdentifier"
-
-                var annotationView: MKAnnotationView?
-                if let dequeuedAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentifier) {
-                    annotationView = dequeuedAnnotationView
-                    annotationView?.annotation = annotation
-                }
-                else {
-                    annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
-                    annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-                }
-
-                if let annotationView = annotationView {
-                   
-                    annotationView.canShowCallout = true
-                    annotationView.image = myAnnotation.image
-                }
-
-                return annotationView
-            
+                return nil
+            }
+            let annotationIdentifier = "AnnotationIdentifier"
+            var annotationView: MKAnnotationView?
+            if let dequeuedAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentifier) {
+                annotationView = dequeuedAnnotationView
+                annotationView?.annotation = annotation
+            }
+            else {
+                annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
+                annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            }
+            if let annotationView = annotationView {
+                annotationView.canShowCallout = true
+                let newImage = UIImage.getFromDocuments(filename: fileName2!)
+                annotationView.image = newImage
+            }
+            return annotationView
         }
         return nil
     }
@@ -140,7 +123,6 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate , MKMapVie
         }else{
             print("error")
         }
-        
     }
     
     //撮った写真をリサイズ
@@ -158,32 +140,16 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate , MKMapVie
         mapView.addAnnotation(pa)
     }
     
-    //保存するためのパスを作成する
-    func createLocalDataFile() -> URL?{
-        // 作成するテキストファイルの名前
-        let fileName = "\(UUID.init().uuidString).png"
-        // DocumentディレクトリのfileURLを取得
-        // ディレクトリのパスにファイル名をつなげてファイルのフルパスを作る
-        return documentDirectoryFileURL.appendingPathComponent(fileName)
-        
-    }
-    
     //Realmに保存する関数の部分
     func save() {
-        let path = createLocalDataFile()!
-        //pngで保存する場合
-        let pngImageData = resizedPicture.pngData()
-        do {
-            try path.saveImage(resizedPicture)
-            let replace = Image()
-            replace.imageURL = path.absoluteString
-            replace.latitude=self.latitude
-            replace.longitude=self.longitude
-            try! realm.write{realm.add(replace)}
-        } catch {
-            //エラー処理
-            print("エラー")
-        }
+        let filename = UUID.init().uuidString + ".jpg"
+        fileName2=filename
+        resizedPicture.saveToDocuments(filename: filename)
+        let replace = Image()
+        replace.imageURL = filename
+        replace.latitude=self.latitude
+        replace.longitude=self.longitude
+        try! realm.write{realm.add(replace)}
     }
 }
 
@@ -193,6 +159,23 @@ extension UIImage {
             self.draw(in: CGRect(origin: .zero, size: targetSize))
         }
     }
+    func saveToDocuments(filename:String){
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let fileURL = documentsDirectory.appendingPathComponent(filename)
+        if let data = self.jpegData(compressionQuality: 1.0) {
+            do {
+                try data.write(to: fileURL)
+            } catch {
+                print(error)
+            }
+        }
+    }
+    static func getFromDocuments(filename: String) -> UIImage {
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let data = try! Data(contentsOf: documentsDirectory.appendingPathComponent(filename))
+        let image = UIImage(data: data)
+        return image!
+    }
 }
 
 class AnnotationPin:  NSObject, MKAnnotation {
@@ -200,7 +183,6 @@ class AnnotationPin:  NSObject, MKAnnotation {
     let title: String?
     let subtitle: String?
     let image: UIImage?
-    
     init(title:String?=nil, subtitle: String?=nil, image: UIImage, coordinate: CLLocationCoordinate2D) {
         self.title = title
         self.subtitle = subtitle
@@ -209,21 +191,3 @@ class AnnotationPin:  NSObject, MKAnnotation {
         super.init()
     }}
 
-extension URL {
-    func loadImage(_ image: inout UIImage?) {
-        if let data = try? Data(contentsOf: self), let loaded = UIImage(data: data) {
-            image = loaded
-        } else {
-            image = nil
-        }
-    }
-    func saveImage(_ image: UIImage?) {
-        if let image = image {
-            if let data = image.jpegData(compressionQuality: 1.0) {
-                try? data.write(to: self)
-            }
-        } else {
-            try? FileManager.default.removeItem(at: self)
-        }
-    }
-}
