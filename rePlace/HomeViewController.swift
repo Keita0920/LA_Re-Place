@@ -13,9 +13,14 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate , MKMapVie
     var latitude:Double=0.0
     var longitude:Double=0.0
     var fileName2:String?
+    var imageURLArray:[String]=[]
+    var index:Int=0
+    var isViewDidLoad:Bool=true
+    var imagecount:Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //try! realm.write{realm.deleteAll()}
         self.mapView.delegate = self
         self.mapView.setUserTrackingMode(MKUserTrackingMode.followWithHeading, animated: true)
         locationManager.delegate = self
@@ -33,22 +38,19 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate , MKMapVie
         //Realmから読み込み
         let image = realm.objects(Image.self)
         print(image)
-        if image.count == 0{
-            return
-        }
+        imagecount=image.count
         for i in 0..<image.count{
             let fileManager = FileManager.default
             let documentDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
             let directoryContents = try! fileManager.contentsOfDirectory(at: documentDirectory, includingPropertiesForKeys: nil)
             for imageURL in directoryContents where imageURL.absoluteString == image[i].imageURL {
-                if let img = UIImage(contentsOfFile: imageURL.path) {
+                if let img = UIImage (contentsOfFile: imageURL.path) {
                     print("test", img)
                     let coordinate=CLLocationCoordinate2D(latitude: image[i].latitude, longitude: image[i].longitude)
                     let annotationPin=AnnotationPin(image:img,coordinate: coordinate)
-                    mapView.addAnnotation(annotationPin)
-                    
+                    mapView.addAnnotation (annotationPin)
                 } else {
-                    fatalError("Can't create image from file \(imageURL)")
+                    fatalError( "Can't create image from file \(imageURL)")
                 }
             }
         }
@@ -84,7 +86,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate , MKMapVie
         region.center = coordinate
     }
     
-    
+    //addAnnotationしたときに呼ばれる
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if (annotation is MKUserLocation) {
             // ユーザの現在地の青丸マークは置き換えない
@@ -101,17 +103,15 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate , MKMapVie
             }
             else {
                 annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
-                annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
             }
             if let annotationView = annotationView {
                 annotationView.canShowCallout = true
-                let newImage = UIImage.getFromDocuments(filename: fileName2!)
-                annotationView.image = newImage
+                annotationView.image = myAnnotation.image!
             }
             return annotationView
         }
-        return nil
     }
+    
     
     @IBAction func takePhoto(){
         if UIImagePickerController.isSourceTypeAvailable(.camera){

@@ -25,6 +25,8 @@ class TagAddViewController: UIViewController ,UITableViewDataSource,UITextFieldD
     let brown     = UIColor.brown
     let realm=try! Realm()
     var receiveTagName:String!
+    // 遷移元から処理を受け取るクロージャのプロパティを用意
+        var resultHandler: ((String) -> Void)?
     
 
     override func viewDidLoad() {
@@ -40,7 +42,12 @@ class TagAddViewController: UIViewController ,UITableViewDataSource,UITextFieldD
 
         // Do any additional setup after loading the view.
     }
-        
+    
+    override func viewWillAppear(_ animated: Bool) {
+        guard receiveTagName != nil else{return}
+        tagName.text=receiveTagName
+        receiveTagName=nil
+    }
         
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -63,24 +70,16 @@ class TagAddViewController: UIViewController ,UITableViewDataSource,UITextFieldD
     
     @IBAction func save() {
         let tag=Tag()
-        let tagListVC=storyboard?.instantiateViewController(withIdentifier: "TagListViewController") as! TagListViewController
-        let tagListVCInstance=tagListVC.view
-        print(tagListVCInstance!)
         tag.tagName=self.tagName.text!
         try! realm.write{realm.add(tag)}
-        let tag2=realm.objects(Tag.self)
-        
-        tagListVC.tagNameArray.append(tag2[tag2.count-1].tagName)
-        
-        tagListVC.table.performBatchUpdates({
-            tagListVC.table.reloadData()
-        }) { (finished) in
-            print("reload完了しました")
-        }
-        
-        let alert:UIAlertController=UIAlertController(title: "OK", message: "メモの保存が完了しました。", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default,handler: {action in self.navigationController?.popViewController(animated: true)}))
-        present(alert,animated: true,completion: nil)
+        // nilチェック
+                guard let text = self.tagName.text else { return }
+        // 用意したクロージャに関数がセットされているか確認する
+                if let handler = self.resultHandler {
+                    // 入力値を引数として渡された処理の実行
+                    handler(text)
+                }
+        navigationController?.popViewController(animated: true)
     }
     
     // セルが選択された時に呼び出される

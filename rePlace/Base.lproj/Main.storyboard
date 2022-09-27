@@ -46,13 +46,12 @@
                     <navigationItem key="navigationItem" title="保存済み" id="FPv-fu-cjd">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="n1h-Bd-s50">
                             <connections>
-                                <segue destination="vWU-2D-CUA" kind="show" id="VZs-Lw-2OB"/>
+                                <action selector="addTag" destination="81F-EM-XWC" id="fE0-0S-wYN"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="table" destination="Tqo-DL-gUC" id="b4y-NO-8J8"/>
-                        <segue destination="vWU-2D-CUA" kind="show" identifier="editTag" id="bI4-FV-Gln"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eBY-kL-1uX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -204,9 +203,6 @@
             <point key="canvasLocation" x="1911.594202898551" y="357.58928571428572"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="bI4-FV-Gln"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="Icon_camera" width="37" height="28"/>
         <image name="Icon_home" width="39" height="34"/>

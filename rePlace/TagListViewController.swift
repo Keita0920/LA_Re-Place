@@ -12,7 +12,8 @@ class TagListViewController: UIViewController,UITableViewDataSource, UITableView
     @IBOutlet var table:UITableView!
     var tagNameArray=[String]()
     let realm=try! Realm()
-
+    var receiveTagName:String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         table.delegate=self
@@ -22,6 +23,13 @@ class TagListViewController: UIViewController,UITableViewDataSource, UITableView
             tagNameArray.append(tag[i].tagName)
         }
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        guard receiveTagName != nil else{return}
+        tagNameArray.append(receiveTagName)
+        print(tagNameArray)
+        table.reloadData()
     }
     //セルの数を決定
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -35,49 +43,63 @@ class TagListViewController: UIViewController,UITableViewDataSource, UITableView
     }
     
     //セルの編集許可
-        func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool
-        {
-            return true
-        }
-
-        //スワイプしたセルとそのデータを削除
-        func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-            if editingStyle == UITableViewCell.EditingStyle.delete {
-                tagNameArray.remove(at: indexPath.row)
-                tableView.deleteRows(at: [indexPath as IndexPath], with: UITableView.RowAnimation.automatic)
-            }
-            let tag = realm.objects(Tag.self)
-            try! realm.write {
-                realm.delete(tag[indexPath.row])
-            }
-        }
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool
+    {
+        return true
+    }
     
+    //スワイプしたセルとそのデータを削除
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCell.EditingStyle.delete {
+            tagNameArray.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath as IndexPath], with: UITableView.RowAnimation.automatic)
+        }
+        let tag = realm.objects(Tag.self)
+        try! realm.write {
+            realm.delete(tag[indexPath.row])
+        }
+    }
+    //セル編集時のTagAddへの処理
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let tagAddVC = storyboard?.instantiateViewController(withIdentifier: "TagAddViewController") as? TagAddViewController
         if let tagAddVC = tagAddVC {
-            tagAddVC.receiveTagName = self.tagNameArray[(self.table.indexPathForSelectedRow?.row)!]
-            tagAddVC.tagName.text=tagAddVC.receiveTagName
+            tagAddVC.receiveTagName = self.tagNameArray[indexPath.row]
         }
-            // セルの選択を解除
-            tableView.deselectRow(at: indexPath, animated: true)
-            // 別の画面に遷移
-            performSegue(withIdentifier: "editTag", sender: nil)
+        // 遷移先のプロパティに処理ごと渡す
+        tagAddVC?.resultHandler = { text in
+            // 引数を使ってoutputLabelの値を更新する処理
+            self.receiveTagName = text
         }
-    
-    
-    
-    
-    
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        // セルの選択を解除
+        tableView.deselectRow(at: indexPath, animated: true)
+        // 別の画面に遷移
+        self.navigationController?.pushViewController(tagAddVC!, animated: true)
     }
-    */
-
+    
+    @IBAction func addTag(){
+        let tagAddVC = storyboard?.instantiateViewController(withIdentifier: "TagAddViewController") as? TagAddViewController
+        // 遷移先のプロパティに処理ごと渡す
+        tagAddVC?.resultHandler = { text in
+            // 引数を使ってoutputLabelの値を更新する処理
+            self.receiveTagName = text
+        }
+        self.navigationController?.pushViewController(tagAddVC!, animated: true)
+    }
+    
+    
+    
+    
+    
+    
+    
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
