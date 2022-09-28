@@ -12,7 +12,8 @@ class TagListViewController: UIViewController,UITableViewDataSource, UITableView
     @IBOutlet var table:UITableView!
     var tagNameArray=[String]()
     let realm=try! Realm()
-    var receiveTagName:String!
+    var receiveTagName:String?
+    var indexNum:Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,9 +27,19 @@ class TagListViewController: UIViewController,UITableViewDataSource, UITableView
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        guard receiveTagName != nil else{return}
-        tagNameArray.append(receiveTagName)
-        print(tagNameArray)
+        guard let receiveTagName = receiveTagName else{return}
+        if receiveTagName == ""{
+            return
+        }
+        if indexNum == nil{
+            tagNameArray.append(receiveTagName)
+            self.receiveTagName=nil
+            print(tagNameArray)
+        }else{
+            tagNameArray[indexNum!]=receiveTagName
+            indexNum=nil
+            print(tagNameArray)
+        }
         table.reloadData()
     }
     //セルの数を決定
@@ -59,23 +70,25 @@ class TagListViewController: UIViewController,UITableViewDataSource, UITableView
             realm.delete(tag[indexPath.row])
         }
     }
-    //セル編集時のTagAddへの処理
+    //セルの編集
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let tagAddVC = storyboard?.instantiateViewController(withIdentifier: "TagAddViewController") as? TagAddViewController
         if let tagAddVC = tagAddVC {
             tagAddVC.receiveTagName = self.tagNameArray[indexPath.row]
+            indexNum=indexPath.row
         }
+        tagAddVC?.indexNum=indexPath.row
         // 遷移先のプロパティに処理ごと渡す
         tagAddVC?.resultHandler = { text in
-            // 引数を使ってoutputLabelの値を更新する処理
-            self.receiveTagName = text
+        // 引数を使ってoutputLabelの値を更新する処理
+        self.receiveTagName = text
         }
         // セルの選択を解除
         tableView.deselectRow(at: indexPath, animated: true)
         // 別の画面に遷移
         self.navigationController?.pushViewController(tagAddVC!, animated: true)
     }
-    
+    //Tagの新規作成
     @IBAction func addTag(){
         let tagAddVC = storyboard?.instantiateViewController(withIdentifier: "TagAddViewController") as? TagAddViewController
         // 遷移先のプロパティに処理ごと渡す
@@ -85,21 +98,4 @@ class TagListViewController: UIViewController,UITableViewDataSource, UITableView
         }
         self.navigationController?.pushViewController(tagAddVC!, animated: true)
     }
-    
-    
-    
-    
-    
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }

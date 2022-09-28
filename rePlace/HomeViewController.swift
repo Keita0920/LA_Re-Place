@@ -40,19 +40,10 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate , MKMapVie
         print(image)
         imagecount=image.count
         for i in 0..<image.count{
-            let fileManager = FileManager.default
-            let documentDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-            let directoryContents = try! fileManager.contentsOfDirectory(at: documentDirectory, includingPropertiesForKeys: nil)
-            for imageURL in directoryContents where imageURL.absoluteString == image[i].imageURL {
-                if let img = UIImage (contentsOfFile: imageURL.path) {
-                    print("test", img)
-                    let coordinate=CLLocationCoordinate2D(latitude: image[i].latitude, longitude: image[i].longitude)
-                    let annotationPin=AnnotationPin(image:img,coordinate: coordinate)
-                    mapView.addAnnotation (annotationPin)
-                } else {
-                    fatalError( "Can't create image from file \(imageURL)")
-                }
-            }
+            let img = UIImage.getFromDocuments(filename: image[i].imageURL)
+            let coordinate=CLLocationCoordinate2D(latitude: image[i].latitude, longitude: image[i].longitude)
+            let annotationPin=AnnotationPin(image: img, coordinate: coordinate)
+            mapView.addAnnotation(annotationPin)
         }
     }
     

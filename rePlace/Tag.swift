@@ -10,4 +10,5 @@ import RealmSwift
 
 class Tag: Object{
     @objc dynamic var tagName:String=""
+    @objc dynamic var color:String=""
 }

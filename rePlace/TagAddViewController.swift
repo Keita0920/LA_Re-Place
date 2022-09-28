@@ -26,29 +26,34 @@ class TagAddViewController: UIViewController ,UITableViewDataSource,UITextFieldD
     let realm=try! Realm()
     var receiveTagName:String!
     // 遷移元から処理を受け取るクロージャのプロパティを用意
-        var resultHandler: ((String) -> Void)?
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    var resultHandler: ((String) -> Void)?
+    var isSelectedColor:Bool=false
+    var isFilled:Bool=false
+    var indexNum:Int?
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.saveButton.isEnabled = false
         table.dataSource=self
         table.delegate=self
         tagNameArray=["red","green","blue","cyan","yellow","magenta","orange","purple","brown","gray"]
         color=[red,green,blue,cyan,yellow,magenta,orange,purple,brown,gray]
         tagName.delegate=self
         if let receiveTagName = self.receiveTagName {
-                self.tagName.text = receiveTagName
-            }
-
+            self.tagName.text = receiveTagName
+        }
+        
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         guard receiveTagName != nil else{return}
         tagName.text=receiveTagName
-        receiveTagName=nil
-    }
         
+    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tagNameArray.count
@@ -69,32 +74,58 @@ class TagAddViewController: UIViewController ,UITableViewDataSource,UITextFieldD
     }
     
     @IBAction func save() {
-        let tag=Tag()
-        tag.tagName=self.tagName.text!
-        try! realm.write{realm.add(tag)}
+        
+        if receiveTagName != nil{
+            let tag=realm.objects(Tag.self).filter("tagName == %@",receiveTagName!)
+            
+                
+                try! realm.write{tag[0].tagName = tagName.text!}
+            
+        }else{
+            let tag=Tag()
+            tag.tagName=self.tagName.text!
+            try! realm.write{realm.add(tag)}
+        }
+        receiveTagName=nil
         // nilチェック
-                guard let text = self.tagName.text else { return }
+        guard let text = self.tagName.text else { return }
         // 用意したクロージャに関数がセットされているか確認する
-                if let handler = self.resultHandler {
-                    // 入力値を引数として渡された処理の実行
-                    handler(text)
-                }
+        if let handler = self.resultHandler {
+            // 入力値を引数として渡された処理の実行
+            handler(text)
+        }
         navigationController?.popViewController(animated: true)
     }
     
     // セルが選択された時に呼び出される
-        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            let cell = tableView.cellForRow(at:indexPath)
-
-            // チェックマークを入れる
-            cell?.accessoryType = .checkmark
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at:indexPath)
+        // チェックマークを入れる
+        cell?.accessoryType = .checkmark
+        isSelectedColor=true
+        if isFilled == true{
+            self.saveButton.isEnabled = true
         }
-
-        // セルの選択が外れた時に呼び出される
-        func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-            let cell = tableView.cellForRow(at:indexPath)
-
-            // チェックマークを外す
-            cell?.accessoryType = .none
+    }
+    
+    // セルの選択が外れた時に呼び出される
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at:indexPath)
+        
+        // チェックマークを外す
+        cell?.accessoryType = .none
+    }
+    
+    @IBAction func memoTextFieldChanged(_ sender: Any) {
+        let memo = self.tagName.text ?? ""
+        if !memo.isEmpty == true{
+            isFilled=true
+            if isSelectedColor == true{
+                self.saveButton.isEnabled = true
+            }
+        }else{
+            isFilled=false
+            self.saveButton.isEnabled = false
         }
+    }
 }
