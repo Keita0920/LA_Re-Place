@@ -19,6 +19,7 @@
 		0BE918B628DDEFCC0031874A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE918B528DDEFCC0031874A /* HomeViewController.swift */; };
 		0BE918B828DDF3200031874A /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE918B728DDF3200031874A /* Tag.swift */; };
 		0BE918BA28DE02290031874A /* TagAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE918B928DE02290031874A /* TagAddViewController.swift */; };
+		0BE918DE28E446C90031874A /* HalfModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE918DD28E446C90031874A /* HalfModalViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		0BE918B528DDEFCC0031874A /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		0BE918B728DDF3200031874A /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		0BE918B928DE02290031874A /* TagAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagAddViewController.swift; sourceTree = "<group>"; };
+		0BE918DD28E446C90031874A /* HalfModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfModalViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 				0BE918B528DDEFCC0031874A /* HomeViewController.swift */,
 				0BE918B728DDF3200031874A /* Tag.swift */,
 				0BE918B928DE02290031874A /* TagAddViewController.swift */,
+				0BE918DD28E446C90031874A /* HalfModalViewController.swift */,
 			);
 			path = rePlace;
 			sourceTree = "<group>";
@@ -168,6 +171,7 @@
 				0BE918B828DDF3200031874A /* Tag.swift in Sources */,
 				0BE918B628DDEFCC0031874A /* HomeViewController.swift in Sources */,
 				0BD487CE28DD583A00CB9914 /* TagListViewController.swift in Sources */,
+				0BE918DE28E446C90031874A /* HalfModalViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

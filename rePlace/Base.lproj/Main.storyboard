@@ -192,11 +192,45 @@
                     <tabBarItem key="tabBarItem" title="" image="Icon_home" id="4w5-dc-XIA"/>
                     <connections>
                         <outlet property="mapView" destination="k3Q-nO-jWf" id="7mB-N6-LnT"/>
+                        <segue destination="mgq-03-7XC" kind="presentation" identifier="toHalfModal" id="8yi-mm-soo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="he1-Fl-vrH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1911.594202898551" y="-300"/>
+        </scene>
+        <!--Half Modal View Controller-->
+        <scene sceneID="VA9-nz-MVe">
+            <objects>
+                <viewController id="mgq-03-7XC" customClass="HalfModalViewController" customModule="rePlace" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1y9-8Z-ks3">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="838"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8U5-vz-PKj">
+                                <rect key="frame" x="20" y="102" width="374" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hER-Jh-AyT">
+                                <rect key="frame" x="327" y="29" width="59" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" red="0.84597575660000002" green="0.2954231309" blue="0.132034229" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="削除"/>
+                                <connections>
+                                    <action selector="deleteAnnnotation" destination="mgq-03-7XC" eventType="touchUpInside" id="NRk-HJ-7db"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vNz-5b-716"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vu6-hY-6k6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2821.739130434783" y="-300"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="9Rr-rY-6zO">
