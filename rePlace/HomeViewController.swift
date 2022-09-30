@@ -17,11 +17,11 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate , MKMapVie
     var index:Int=0
     var isViewDidLoad:Bool=true
     var imagecount:Int?
-    var annotationView:MKAnnotationView!
+    var annotationView:UIImage!
+    var isDeleted:Bool=false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //try! realm.write{realm.deleteAll()}
         self.mapView.delegate = self
         self.mapView.setUserTrackingMode(MKUserTrackingMode.followWithHeading, animated: true)
         locationManager.delegate = self
@@ -36,32 +36,28 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate , MKMapVie
         }
         // 地図の初期化
         initMap()
-        //Realmから読み込み
-        let image = realm.objects(Image.self)
-        print(image)
-        imagecount=image.count
-        for i in 0..<image.count{
-            let img = UIImage.getFromDocuments(filename: image[i].imageURL)
-            let coordinate=CLLocationCoordinate2D(latitude: image[i].latitude, longitude: image[i].longitude)
-            let annotationPin=AnnotationPin(image: img, coordinate: coordinate)
-            mapView.addAnnotation(annotationPin)
-        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        refresh()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             let next = segue.destination
             if let sheet = next.sheetPresentationController {
                 sheet.detents = [.medium()]
-
                 //モーダル出現後も親ビュー操作可能にする
                 sheet.largestUndimmedDetentIdentifier = .medium
                 // 角丸の半径を変更する
-                sheet.preferredCornerRadius = 40.0
+                sheet.preferredCornerRadius = 20.0
             }
         if segue.identifier == "toHalfModal" {
             let secondView = segue.destination as! HalfModalViewController
-            secondView.mapView = mapView
-            secondView.annotationPin=(annotationView as! any MKAnnotation)
+            // 遷移先のプロパティに処理ごと渡す
+            secondView.resultHandler = { bool in
+                self.isDeleted = bool
+            }
         }
     }
     
@@ -121,7 +117,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate , MKMapVie
         }
     }
     
-    
+    //写真を撮る
     @IBAction func takePhoto(){
         if UIImagePickerController.isSourceTypeAvailable(.camera){
             let picker=UIImagePickerController()
@@ -140,14 +136,13 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate , MKMapVie
         resizedPicture = picture.resize(targetSize: CGSize(width: picture.size.width / 10, height: picture.size.height / 10))
         save()
         dismiss(animated: true,completion: nil)
-        
         //Realmから読み込み
         let image = realm.objects(Image.self)
         print(image)
         imagecount=image.count
         let img = UIImage.getFromDocuments(filename: image[image.count-1].imageURL)
         let coordinate=CLLocationCoordinate2D(latitude: image[image.count-1].latitude, longitude: image[image.count-1].longitude)
-        let annotationPin=AnnotationPin(image: img, coordinate: coordinate)
+        let annotationPin=AnnotationPin(image: img, coordinate: coordinate,object: image[image.count-1])
         mapView.addAnnotation(annotationPin)
     }
     
@@ -163,11 +158,24 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate , MKMapVie
         try! realm.write{realm.add(replace)}
     }
     
+    func refresh(){
+        mapView.removeAnnotations(mapView.annotations)
+        //Realmから読み込み
+        let image = realm.objects(Image.self)
+        print(image)
+        imagecount=image.count
+        for i in 0..<image.count{
+            let img = UIImage.getFromDocuments(filename: image[i].imageURL)
+            let coordinate=CLLocationCoordinate2D(latitude: image[i].latitude, longitude: image[i].longitude)
+            let annotationPin=AnnotationPin(image: img, coordinate: coordinate,object: image[i])
+            mapView.addAnnotation(annotationPin)
+        }
+    }
+    
     //ピンが選択されたら
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         performSegue(withIdentifier: "toHalfModal", sender: nil)
-        print(view)
-        annotationView=view
+        annotationView=view.image
         }
 }
 
@@ -201,11 +209,15 @@ class AnnotationPin:  NSObject, MKAnnotation {
     let title: String?
     let subtitle: String?
     let image: UIImage?
-    init(title:String?=nil, subtitle: String?=nil, image: UIImage, coordinate: CLLocationCoordinate2D) {
+    let object:Image!
+    init(title:String?=nil, subtitle: String?=nil, image: UIImage, coordinate: CLLocationCoordinate2D,object:Image) {
         self.title = title
         self.subtitle = subtitle
         self.coordinate = coordinate
         self.image = image
+        self.object=object
         super.init()
     }}
+
+
 

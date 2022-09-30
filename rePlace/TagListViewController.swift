@@ -14,15 +14,31 @@ class TagListViewController: UIViewController,UITableViewDataSource, UITableView
     let realm=try! Realm()
     var receiveTagName:String?
     var indexNum:Int?
+    var receiveColorNum:Int?
+    var colorList=[UIColor]()
+    let gray      = UIColor.gray
+    let red       = UIColor.red
+    let green     = UIColor.green
+    let blue      = UIColor.blue
+    let cyan      = UIColor.cyan
+    let yellow    = UIColor.yellow
+    let magenta   = UIColor.magenta
+    let orange    = UIColor.orange
+    let purple    = UIColor.purple
+    let brown     = UIColor.brown
+    var handleColor=[UIColor]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        colorList=[red,green,blue,cyan,yellow,magenta,orange,purple,brown,gray]
         table.delegate=self
         table.dataSource=self
         let tag=realm.objects(Tag.self)
         for i in 0..<tag.count{
             tagNameArray.append(tag[i].tagName)
+            handleColor.append(colorList[tag[i].colorIndexNum])
         }
+        
         // Do any additional setup after loading the view.
     }
     
@@ -33,23 +49,26 @@ class TagListViewController: UIViewController,UITableViewDataSource, UITableView
         }
         if indexNum == nil{
             tagNameArray.append(receiveTagName)
+            handleColor.append(colorList[receiveColorNum!])
             self.receiveTagName=nil
-            print(tagNameArray)
         }else{
             tagNameArray[indexNum!]=receiveTagName
+            handleColor[indexNum!]=colorList[receiveColorNum!]
             indexNum=nil
-            print(tagNameArray)
         }
         table.reloadData()
     }
+    
     //セルの数を決定
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tagNameArray.count
     }
+    
     //セルの生成
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell=tableView.dequeueReusableCell(withIdentifier: "Cell")
         cell?.textLabel?.text=tagNameArray[indexPath.row]
+        cell?.backgroundColor=handleColor[indexPath.row]
         return cell!
     }
     
@@ -76,12 +95,16 @@ class TagListViewController: UIViewController,UITableViewDataSource, UITableView
         if let tagAddVC = tagAddVC {
             tagAddVC.receiveTagName = self.tagNameArray[indexPath.row]
             indexNum=indexPath.row
+            let tag = realm.objects(Tag.self)
+            tagAddVC.indexNum=tag[indexPath.row].colorIndexNum
         }
-        tagAddVC?.indexNum=indexPath.row
         // 遷移先のプロパティに処理ごと渡す
         tagAddVC?.resultHandler = { text in
-        // 引数を使ってoutputLabelの値を更新する処理
         self.receiveTagName = text
+        }
+        // 遷移先のプロパティに処理ごと渡す
+        tagAddVC?.resultColor = { num in
+            self.receiveColorNum = num
         }
         // セルの選択を解除
         tableView.deselectRow(at: indexPath, animated: true)
@@ -93,8 +116,11 @@ class TagListViewController: UIViewController,UITableViewDataSource, UITableView
         let tagAddVC = storyboard?.instantiateViewController(withIdentifier: "TagAddViewController") as? TagAddViewController
         // 遷移先のプロパティに処理ごと渡す
         tagAddVC?.resultHandler = { text in
-            // 引数を使ってoutputLabelの値を更新する処理
             self.receiveTagName = text
+        }
+        // 遷移先のプロパティに処理ごと渡す
+        tagAddVC?.resultColor = { num in
+            self.receiveColorNum = num
         }
         self.navigationController?.pushViewController(tagAddVC!, animated: true)
     }

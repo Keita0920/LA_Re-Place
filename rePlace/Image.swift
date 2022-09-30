@@ -12,4 +12,6 @@ class Image: Object{
     @objc dynamic var longitude:Double=0.0
     @objc dynamic var latitude:Double=0.0
     @objc dynamic var imageURL:String=""
+    @objc dynamic var colorIndexNum:Int=0
+    @objc dynamic var tagName:String=""
 }

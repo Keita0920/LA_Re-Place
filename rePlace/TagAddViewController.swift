@@ -28,9 +28,12 @@ class TagAddViewController: UIViewController ,UITableViewDataSource,UITextFieldD
     // 遷移元から処理を受け取るクロージャのプロパティを用意
     @IBOutlet weak var saveButton: UIBarButtonItem!
     var resultHandler: ((String) -> Void)?
+    var resultColor:((Int) -> Void)?
     var isSelectedColor:Bool=false
     var isFilled:Bool=false
     var indexNum:Int?
+    var serectColorNum:Int?
+    
     
     
     override func viewDidLoad() {
@@ -74,25 +77,27 @@ class TagAddViewController: UIViewController ,UITableViewDataSource,UITextFieldD
     }
     
     @IBAction func save() {
-        
         if receiveTagName != nil{
             let tag=realm.objects(Tag.self).filter("tagName == %@",receiveTagName!)
-            
-                
-                try! realm.write{tag[0].tagName = tagName.text!}
-            
+            try! realm.write{tag[0].tagName = tagName.text!}
+            let color=realm.objects(Tag.self).filter("colorIndexNum == %@",indexNum!)
+            try! realm.write{color[0].colorIndexNum = serectColorNum!}
         }else{
             let tag=Tag()
             tag.tagName=self.tagName.text!
+            tag.colorIndexNum=serectColorNum!
             try! realm.write{realm.add(tag)}
         }
         receiveTagName=nil
-        // nilチェック
-        guard let text = self.tagName.text else { return }
         // 用意したクロージャに関数がセットされているか確認する
         if let handler = self.resultHandler {
             // 入力値を引数として渡された処理の実行
-            handler(text)
+            handler(self.tagName.text!)
+        }
+        // 用意したクロージャに関数がセットされているか確認する
+        if let color = self.resultColor {
+            // 入力値を引数として渡された処理の実行
+            color(serectColorNum!)
         }
         navigationController?.popViewController(animated: true)
     }
@@ -100,6 +105,7 @@ class TagAddViewController: UIViewController ,UITableViewDataSource,UITextFieldD
     // セルが選択された時に呼び出される
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at:indexPath)
+        serectColorNum=indexPath.row
         // チェックマークを入れる
         cell?.accessoryType = .checkmark
         isSelectedColor=true
@@ -111,7 +117,6 @@ class TagAddViewController: UIViewController ,UITableViewDataSource,UITextFieldD
     // セルの選択が外れた時に呼び出される
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at:indexPath)
-        
         // チェックマークを外す
         cell?.accessoryType = .none
     }
