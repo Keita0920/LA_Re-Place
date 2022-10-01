@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="NA8-vo-ymU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ebd-TT-zkX">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
@@ -9,154 +9,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--保存済み-->
-        <scene sceneID="NIb-TL-X2J">
-            <objects>
-                <viewController storyboardIdentifier="TagListViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="81F-EM-XWC" customClass="TagListViewController" customModule="rePlace" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="g3F-6g-xZb">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Tqo-DL-gUC">
-                                <rect key="frame" x="0.0" y="161" width="414" height="735"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" textLabel="mhH-D9-f9Q" style="IBUITableViewCellStyleDefault" id="jLM-FB-n0c">
-                                        <rect key="frame" x="0.0" y="50" width="414" height="43.5"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jLM-FB-n0c" id="nIe-tW-bEc">
-                                            <rect key="frame" x="0.0" y="0.0" width="383.5" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mhH-D9-f9Q">
-                                                    <rect key="frame" x="20" y="0.0" width="355.5" height="43.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" name="HiraMaruProN-W4" family="Hiragino Maru Gothic ProN" pointSize="0.0"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="自分のリスト" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PUT-q2-JPD">
-                                <rect key="frame" x="20" y="110" width="102" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HiraMaruProN-W4" family="Hiragino Maru Gothic ProN" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="UIK-x5-WsA"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="Tqo-DL-gUC" firstAttribute="leading" secondItem="g3F-6g-xZb" secondAttribute="leading" id="0cA-ba-bYl"/>
-                            <constraint firstAttribute="trailing" secondItem="Tqo-DL-gUC" secondAttribute="trailing" id="MCL-m8-Qe2"/>
-                            <constraint firstAttribute="bottom" secondItem="Tqo-DL-gUC" secondAttribute="bottom" id="TOv-r7-hdX"/>
-                            <constraint firstItem="Tqo-DL-gUC" firstAttribute="top" secondItem="UIK-x5-WsA" secondAttribute="top" constant="69" id="gbB-qB-0ud"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="保存済み" id="FPv-fu-cjd">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="n1h-Bd-s50">
-                            <connections>
-                                <action selector="addTag" destination="81F-EM-XWC" id="fE0-0S-wYN"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="table" destination="Tqo-DL-gUC" id="b4y-NO-8J8"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="eBY-kL-1uX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2822" y="358"/>
-        </scene>
-        <!--新しいタグ-->
-        <scene sceneID="C0o-HK-ZMJ">
-            <objects>
-                <viewController storyboardIdentifier="TagAddViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vWU-2D-CUA" customClass="TagAddViewController" customModule="rePlace" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Aqq-4V-gpy">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="新しいタグ名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O4m-Gu-z6K">
-                                <rect key="frame" x="32" y="134" width="102" height="17"/>
-                                <fontDescription key="fontDescription" name="HiraMaruProN-W4" family="Hiragino Maru Gothic ProN" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="tOX-y5-wKN">
-                                <rect key="frame" x="0.0" y="227" width="414" height="669"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="xMM-jt-pOQ" style="IBUITableViewCellStyleDefault" id="MZc-os-6Ct">
-                                        <rect key="frame" x="0.0" y="50" width="414" height="43.5"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MZc-os-6Ct" id="LBA-jW-8jd">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xMM-jt-pOQ">
-                                                    <rect key="frame" x="20" y="0.0" width="374" height="43.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" name="HiraMaruProN-W4" family="Hiragino Maru Gothic ProN" pointSize="0.0"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KJl-4U-2OS">
-                                <rect key="frame" x="176" y="127" width="218" height="34"/>
-                                <fontDescription key="fontDescription" name="HiraMaruProN-W4" family="Hiragino Maru Gothic ProN" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="memoTextFieldChanged:" destination="vWU-2D-CUA" eventType="editingChanged" id="dzQ-qI-gsD"/>
-                                </connections>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="新しいタグの色" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3X6-ZW-WxZ">
-                                <rect key="frame" x="32" y="211" width="119" height="17"/>
-                                <fontDescription key="fontDescription" name="HiraMaruProN-W4" family="Hiragino Maru Gothic ProN" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="hDv-pL-qKC"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstAttribute="bottom" secondItem="tOX-y5-wKN" secondAttribute="bottom" id="0tg-Lq-SJk"/>
-                            <constraint firstItem="hDv-pL-qKC" firstAttribute="trailing" secondItem="KJl-4U-2OS" secondAttribute="trailing" constant="20" id="2lt-uj-vKu"/>
-                            <constraint firstItem="3X6-ZW-WxZ" firstAttribute="top" secondItem="O4m-Gu-z6K" secondAttribute="bottom" constant="32" id="3Vv-h1-DZ2"/>
-                            <constraint firstItem="O4m-Gu-z6K" firstAttribute="leading" secondItem="hDv-pL-qKC" secondAttribute="leading" constant="32" id="7V0-OD-5sf"/>
-                            <constraint firstItem="O4m-Gu-z6K" firstAttribute="top" secondItem="hDv-pL-qKC" secondAttribute="top" constant="86" id="Noo-f2-Xj2"/>
-                            <constraint firstAttribute="trailing" secondItem="tOX-y5-wKN" secondAttribute="trailing" id="SeE-wZ-PpG"/>
-                            <constraint firstItem="3X6-ZW-WxZ" firstAttribute="leading" secondItem="hDv-pL-qKC" secondAttribute="leading" constant="32" id="TVo-0Z-j2e"/>
-                            <constraint firstItem="tOX-y5-wKN" firstAttribute="leading" secondItem="Aqq-4V-gpy" secondAttribute="leading" id="jUO-5u-ezt"/>
-                            <constraint firstItem="KJl-4U-2OS" firstAttribute="leading" secondItem="O4m-Gu-z6K" secondAttribute="trailing" constant="42" id="sPx-Sp-L2N"/>
-                            <constraint firstItem="tOX-y5-wKN" firstAttribute="top" secondItem="3X6-ZW-WxZ" secondAttribute="bottom" constant="27" id="uY6-en-n3q"/>
-                            <constraint firstItem="KJl-4U-2OS" firstAttribute="top" secondItem="hDv-pL-qKC" secondAttribute="top" constant="79" id="x0N-ln-c9S"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="新しいタグ" id="b0P-zB-XBB">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="C5I-8L-4xj">
-                            <connections>
-                                <action selector="save" destination="vWU-2D-CUA" id="Xee-wo-Z0O"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="saveButton" destination="C5I-8L-4xj" id="yqA-Di-1qx"/>
-                        <outlet property="table" destination="tOX-y5-wKN" id="uV9-yf-bqU"/>
-                        <outlet property="tagName" destination="KJl-4U-2OS" id="c2G-jB-Dyw"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Euq-c5-Y2Y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3602.898550724638" y="357.58928571428572"/>
-        </scene>
         <!--Home View Controller-->
         <scene sceneID="bHs-mR-egE">
             <objects>
@@ -166,11 +18,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k3Q-nO-jWf">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="790"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <standardMapConfiguration key="preferredConfiguration"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dK6-Ag-WOb">
-                                <rect key="frame" x="314" y="673" width="61" height="42"/>
+                                <rect key="frame" x="314" y="722" width="61" height="42"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="Icon_camera"/>
                                 <connections>
@@ -184,9 +36,13 @@
                             <constraint firstItem="VUT-To-hC7" firstAttribute="bottom" secondItem="k3Q-nO-jWf" secondAttribute="bottom" constant="23" id="09u-n6-tCI"/>
                             <constraint firstItem="k3Q-nO-jWf" firstAttribute="leading" secondItem="vPz-Ge-h4b" secondAttribute="leading" id="1z4-nQ-bC3"/>
                             <constraint firstItem="VUT-To-hC7" firstAttribute="bottom" secondItem="dK6-Ag-WOb" secondAttribute="bottom" constant="98" id="Bhb-18-FlZ"/>
+                            <constraint firstAttribute="bottom" secondItem="k3Q-nO-jWf" secondAttribute="bottom" id="Gh2-qD-UkS"/>
                             <constraint firstItem="VUT-To-hC7" firstAttribute="trailing" secondItem="dK6-Ag-WOb" secondAttribute="trailing" constant="39" id="MuP-3M-e7I"/>
                             <constraint firstAttribute="trailing" secondItem="k3Q-nO-jWf" secondAttribute="trailing" id="Vrg-Q0-yVH"/>
+                            <constraint firstItem="k3Q-nO-jWf" firstAttribute="top" secondItem="vPz-Ge-h4b" secondAttribute="top" id="Vu3-Y4-s3k"/>
                             <constraint firstItem="k3Q-nO-jWf" firstAttribute="top" secondItem="vPz-Ge-h4b" secondAttribute="top" id="hP8-dv-7d6"/>
+                            <constraint firstAttribute="trailing" secondItem="k3Q-nO-jWf" secondAttribute="trailing" id="ucb-yu-Luw"/>
+                            <constraint firstItem="k3Q-nO-jWf" firstAttribute="leading" secondItem="vPz-Ge-h4b" secondAttribute="leading" id="yTK-AO-dNy"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="Icon_home" id="4w5-dc-XIA"/>
@@ -207,22 +63,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="838"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hER-Jh-AyT">
-                                <rect key="frame" x="283" y="30" width="111" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="0.84597575660000002" green="0.2954231309" blue="0.132034229" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="ピンを削除"/>
-                                <connections>
-                                    <action selector="deleteAnnnotation" destination="mgq-03-7XC" eventType="touchUpInside" id="NRk-HJ-7db"/>
-                                </connections>
-                            </button>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qdp-49-zco">
-                                <rect key="frame" x="20" y="31" width="34" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ttc-gw-yhn">
                                 <rect key="frame" x="78" y="36" width="0.0" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -230,93 +70,35 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="QbE-cK-BoH">
-                                <rect key="frame" x="0.0" y="96" width="414" height="637"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="goR-LB-rEd" style="IBUITableViewCellStyleDefault" id="MND-fM-Y1m">
-                                        <rect key="frame" x="0.0" y="50" width="414" height="43.5"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MND-fM-Y1m" id="h77-xK-A9d">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="goR-LB-rEd">
-                                                    <rect key="frame" x="20" y="0.0" width="374" height="43.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" name="HiraMaruProN-W4" family="Hiragino Maru Gothic ProN" pointSize="0.0"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="タグを選択してください" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Zo-Oq-aJ4">
-                                <rect key="frame" x="62" y="37" width="191" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hER-Jh-AyT">
+                                <rect key="frame" x="20" y="80" width="374" height="35"/>
+                                <color key="tintColor" red="0.84597575660000002" green="0.2954231309" blue="0.132034229" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="ピンを削除"/>
+                                <connections>
+                                    <action selector="deleteAnnnotation" destination="mgq-03-7XC" eventType="touchUpInside" id="NRk-HJ-7db"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vNz-5b-716"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="hER-Jh-AyT" firstAttribute="top" secondItem="vNz-5b-716" secondAttribute="top" constant="32" id="0FZ-lk-Kx2"/>
+                            <constraint firstItem="hER-Jh-AyT" firstAttribute="top" secondItem="1y9-8Z-ks3" secondAttribute="topMargin" constant="30" id="1lc-P8-MvD"/>
+                            <constraint firstItem="hER-Jh-AyT" firstAttribute="centerX" secondItem="1y9-8Z-ks3" secondAttribute="centerX" id="42O-bi-sBN"/>
+                            <constraint firstItem="hER-Jh-AyT" firstAttribute="top" secondItem="vNz-5b-716" secondAttribute="top" constant="32" id="W1x-bo-mO4"/>
+                            <constraint firstItem="vNz-5b-716" firstAttribute="trailing" secondItem="hER-Jh-AyT" secondAttribute="trailing" constant="20" id="pvT-ld-zSv"/>
+                        </constraints>
                     </view>
-                    <connections>
-                        <outlet property="colorLabel" destination="Qdp-49-zco" id="cLq-Bi-pNf"/>
-                        <outlet property="table" destination="QbE-cK-BoH" id="aKg-1A-Cpf"/>
-                        <outlet property="tagNameLabel" destination="6Zo-Oq-aJ4" id="t6w-bC-Avi"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vu6-hY-6k6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2821.739130434783" y="-300"/>
         </scene>
-        <!--Tab Bar Controller-->
-        <scene sceneID="9Rr-rY-6zO">
-            <objects>
-                <tabBarController id="NA8-vo-ymU" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="UzY-eI-js8">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="49"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="Ebd-TT-zkX" kind="relationship" relationship="viewControllers" id="GMA-LB-cND"/>
-                        <segue destination="W3w-To-0xO" kind="relationship" relationship="viewControllers" id="hR4-nU-Xm4"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="RNM-f3-gJW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1025" y="4"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="xIc-uu-5Lf">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="W3w-To-0xO" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="Icon_tags" id="Rj5-kc-u7H"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="vwE-8Q-ckC">
-                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="81F-EM-XWC" kind="relationship" relationship="rootViewController" id="CtY-ho-qoh"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7PV-XX-J4p" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1911.594202898551" y="357.58928571428572"/>
-        </scene>
     </scenes>
     <resources>
         <image name="Icon_camera" width="37" height="28"/>
         <image name="Icon_home" width="39" height="34"/>
-        <image name="Icon_tags" width="32" height="32"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
